@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить участника</title>
+</head>
+<body>
+<form method="post" name="addSwimmer">
+    <label>Страна - </label>
+    <select name="country">
+        <option th:each="country : ${countryList}"
+                th:text="${country.name}">
+        </option>
+    </select>
+    <label>Тип - </label>
+    <select name="type">
+        <option th:each="type : ${typeList}"
+                th:text="${type.name}">
+        </option>
+    </select>
+    <input type="text" placeholder="Имя" name="name">
+    <button type="submit" >Добавить</button>
+</form>
+<br>
+<a href="/list">Список</a>
+<br>
+<a href="/result">Результаты</a>
+<br>
+<a href="/addResult">Добавить время</a>
+</body>
+</html>

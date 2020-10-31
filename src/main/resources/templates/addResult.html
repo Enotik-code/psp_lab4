@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить результат</title>
+    <style>
+        .column {
+            float: left;
+            width: 33.33%;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<form method="post" name="addResult">
+<div class="row">
+    <div class="column">
+        <label>Участник - </label>
+        <select name="name">
+            <option th:each="swimmer : ${listSwimmer}"
+                    th:text="${swimmer.name}">
+            </option>
+        </select>
+    </div>
+    <div class="column">
+            <input type="text" placeholder="Результат(сек.)" name="result">
+            <button type="submit">Добавить</button>
+    </div>
+</div>
+</form>
+<br>
+<a href="/list">Список</a>
+<br>
+<a href="/result">Результаты</a>
+<br>
+<a href="/addSwimmer">Добавить участника</a>
+</body>
+</html>

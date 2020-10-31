@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Swimmer List</title>
+</head>
+<body>
+<div>
+    <form th:action="@{searchName}" method="get">
+        <input type="text" name="name" placeholder="Enter name"/>&nbsp;&nbsp;&nbsp;
+        <button type="submit">Найти по имени </button>
+    </form>
+    <br>
+    <form th:action="@{searchId}" method="get">
+        <input type="text" name="id" placeholder="Enter id"/>&nbsp;&nbsp;&nbsp;
+        <button type="submit">Найти по #</button>
+    </form>
+    <br>
+    <form th:action="@{searchResult}" method="get">
+        <input type="text" name="result" placeholder="Enter result"/>&nbsp;&nbsp;&nbsp;
+        <button type="submit">Найти по результату</button>
+    </form>
+    <br>
+</div>
+<form method="get">
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Имя</th>
+        <th>Результат</th>
+        <th>Страна</th>
+        <th>Тип плавания</th>
+        <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="swimmer : ${listSwimmer}">
+        <td th:text="${swimmer.id}">#</td>
+        <td th:text="${swimmer.name}">Имя</td>
+        <td th:text="${swimmer.result}">Результат</td>
+        <td th:text="${swimmer.country.getName()}">Страна</td>
+        <td th:text="${swimmer.type.getName()}">Тип плавания</td>
+        <td><a th:object="${swimmer}" th:href="@{'/delete/' + ${swimmer.getId()}}">Удалить</a></td>
+    </tr>
+</table>
+    <br>
+    <a href="/list">Назад</a>
+</form>
+<br>
+<form th:action="@{sortByName}" method="get">
+    <button type="submit">Сортировать по имени</button>
+</form>
+<br>
+<form th:action="@{sortByResult}" method="get">
+    <button type="submit">Сортировать по результату</button>
+</form>
+<br>
+<form th:action="@{sortByCountry}" method="get">
+    <button type="submit">Сортировать по стране</button>
+</form>
+<br>
+<form th:action="@{sortByType}" method="get">
+    <button type="submit">Сортировать по типу плавания</button>
+</form>
+<br>
+<form th:action="@{filtrationResult}" method="get">
+    <input type="text" name="resultMin" placeholder="Минимальный результат"/>&nbsp;&nbsp;&nbsp;
+    <input type="text" name="resultMax" placeholder="Максимальный результат"/>
+    <button type="submit">Фильтрация</button>
+</form>
+
+<br>
+<a href="/result">Результаты</a>
+<br>
+<a href="/addSwimmer">Добавить участника</a>
+<br>
+<a href="/addResult">Добавить время</a>
+</body>
+</html>
