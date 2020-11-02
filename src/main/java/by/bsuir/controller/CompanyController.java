@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class SwimmerController {
+public class CompanyController {
 
     @Autowired
     CompanyRepository companyRepository;
@@ -29,80 +29,78 @@ public class SwimmerController {
     @GetMapping(value = "/list")
     public ModelAndView listPage() {
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.findAll());
+        modelAndView.addObject("listCompany", companyRepository.findAll());
         return modelAndView;
     }
 
     @GetMapping(value = "/searchName")
-    public ModelAndView searchSwimmerByName(@ModelAttribute(name = "name") String name) {
+    public ModelAndView searchCompanyByName(@ModelAttribute(name = "name") String name) {
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.searchSwimmerByName(name));
+        modelAndView.addObject("listCompany", companyRepository.searchCompanyByName(name));
         return modelAndView;
     }
 
     @GetMapping(value = "/searchId")
-    public ModelAndView searchSwimmerById(@ModelAttribute(name = "id") int id) {
+    public ModelAndView searchCompanyById(@ModelAttribute(name = "id") int id) {
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.searchSwimmerById(id));
+        modelAndView.addObject("listCompany", companyRepository.searchCompanyById(id));
         return modelAndView;
     }
 
-    @GetMapping(value = "/searchResult")
-    public ModelAndView searchSwimmerByResult(@ModelAttribute(name = "result") int result) {
+    @GetMapping(value = "/searchTaxAmount")
+    public ModelAndView searchCompanyByTaxAmount(@ModelAttribute(name = "result") int result) {
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.searchSwimmerByResult(result));
+        modelAndView.addObject("listCompany", companyRepository.searchCompanyByTaxAmount(result));
         return modelAndView;
     }
 
-    @GetMapping(value = "/addSwimmer")
-    public ModelAndView addSwimmerPage() {
-        ModelAndView modelAndView = new ModelAndView("/addSwimmer");
-        modelAndView.addObject("countryList", cityRepository.findAll());
+    @GetMapping(value = "/addCompany")
+    public ModelAndView addCompanyPage() {
+        ModelAndView modelAndView = new ModelAndView("addCompany");
+        modelAndView.addObject("cityList", cityRepository.findAll());
         modelAndView.addObject("typeList", taxionSystemRepository.findAll());
         return modelAndView;
     }
 
-    @GetMapping(value = "/addResult")
-    public ModelAndView addResultPage() {
-        ModelAndView modelAndView = new ModelAndView("/addResult");
-        modelAndView.addObject("listSwimmer", companyRepository.findAll());
-        return modelAndView;
-    }
-
     @GetMapping(value = "/delete" + "/{id}")
-    public ModelAndView deleteSwimmer(@PathVariable(name = "id") int id) {
-        ModelAndView modelAndView = new ModelAndView("/list");
-        companyRepository.deleteSwimmerById(id);
-        return modelAndView;
-    }
-
-    @PostMapping(value = "/addResult")
-    public ModelAndView addResultPagePost(@RequestParam(value = "name", required = false) String name,
-                                          @RequestParam(value = "result", required = false) int result) {
-        ModelAndView modelAndView = new ModelAndView("/addResult");
-        companyRepository.setResult(companyRepository.getByName(name).getId(), result);
+    public ModelAndView deleteCompany(@PathVariable(name = "id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        companyRepository.deleteCompanyById(id);
         modelAndView.setViewName("redirect:/list");
         return modelAndView;
     }
 
-    @PostMapping(value = "/addSwimmer")
-    public ModelAndView addSwimmerPagePost(@RequestParam(value = "name", required = false) String name,
-                                           @RequestParam(value = "country", required = false) String country,
-                                           @RequestParam(value = "type", required = false) String type) {
-        ModelAndView modelAndView = new ModelAndView("/addSwimmer");
-        Company company = new Company(name, cityRepository.findByName(country), taxionSystemRepository.findByName(type), 12);
+    @GetMapping(value = "/update" + "/{id}")
+    public ModelAndView updateCompany(@PathVariable(name = "id") int id) {
+        ModelAndView modelAndView = new ModelAndView("/updateCompany");
+        modelAndView.addObject("cityList", cityRepository.findAll());
+        modelAndView.addObject("typeList", taxionSystemRepository.findAll());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/update" + "/{id}")
+    public ModelAndView addCompanyPagePost(@PathVariable(name = "id") int id,
+                                           @RequestParam(value = "city", required = false) String city,
+                                           @RequestParam(value = "profit", required = false) int profit,
+                                           @RequestParam(value = "taxationSystem", required = false) String type) {
+        ModelAndView modelAndView = new ModelAndView("/updateCompany");
+        companyRepository.setNewData(id, profit,cityRepository.findByName(city) ,taxionSystemRepository.findByName(type),
+                taxService.getTaxAmount(profit, taxionSystemRepository.findByName(type).getPercent()));
+        modelAndView.setViewName("redirect:/list");
+        return modelAndView;
+    }
+
+
+    @PostMapping(value = "/addCompany")
+    public ModelAndView addCompanyPagePost(@RequestParam(value = "name", required = false) String name,
+                                           @RequestParam(value = "city", required = false) String country,
+                                           @RequestParam(value = "profit", required = false) int profit,
+                                           @RequestParam(value = "taxationSystem", required = false) String type) {
+        ModelAndView modelAndView = new ModelAndView("addCompany");
+        Company company = new Company(name, cityRepository.findByName(country),
+                taxionSystemRepository.findByName(type), profit, taxService.getTaxAmount(profit, taxionSystemRepository.findByName(type).getPercent()));
         companyRepository.save(company);
         modelAndView.setViewName("redirect:/list");
         return modelAndView;
     }
-
-    @GetMapping(value = "/result")
-    public ModelAndView resultPage() {
-        ModelAndView modelAndView = new ModelAndView("/result");
-        modelAndView.addObject("firstPlace", taxService.getNewList().get(0));
-        modelAndView.addObject("secondPlace", taxService.getNewList().get(1));
-        modelAndView.addObject("thirdPlace", taxService.getNewList().get(2));
-        return modelAndView;
-    }
-
 }

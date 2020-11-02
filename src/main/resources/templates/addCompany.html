@@ -4,30 +4,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Добавить участника</title>
+    <title>Добавить компанию</title>
 </head>
 <body>
-<form method="post" name="addSwimmer">
-    <label>Страна - </label>
+<form method="post" name="addCompany">
+    <label>Город - </label>
     <select name="city">
-        <option th:each="city : ${countryList}"
+        <option th:each="city : ${cityList}"
                 th:text="${city.name}">
         </option>
     </select>
-    <label>Тип - </label>
+    <label>Тип налога - </label>
     <select name="taxationSystem">
         <option th:each="taxationSystem : ${typeList}"
                 th:text="${taxationSystem.name}">
         </option>
     </select>
-    <input taxationSystem="text" placeholder="Имя" name="name">
+    <input type="text" placeholder="Название" name="name">
+    <input type="text" placeholder="Итоговая прибыль" name="profit">
     <button taxationSystem="submit" >Добавить</button>
 </form>
 <br>
-<a href="/list">Список</a>
+<a href="/list">Список компаний</a>
 <br>
-<a href="/result">Результаты</a>
-<br>
-<a href="/addResult">Добавить время</a>
+<a href="/addTaxAmount">Расчитать налог</a>
 </body>
 </html>

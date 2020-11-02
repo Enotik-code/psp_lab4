@@ -1,23 +1,22 @@
 package by.bsuir.service;
 
-import by.bsuir.bean.Company;
-import by.bsuir.repository.SwimmerRepository;
+import by.bsuir.repository.CompanyRepository;
+import by.bsuir.repository.TaxionSystemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class SwimmerService {
+public class TaxService {
 
     @Autowired
-    SwimmerRepository swimmerRepository;
+    CompanyRepository companyRepository;
 
-    public List<Company> getNewList() {
-        return swimmerRepository.findAll().stream().sorted(Comparator.comparing(Company::getResult))
-                .collect(Collectors.toList()).subList(0,3);
+    @Autowired
+    TaxionSystemRepository taxionSystemRepository;
+
+    public int getTaxAmount(int profit, int percent) {
+    return profit * percent / 100;
     }
 
 }

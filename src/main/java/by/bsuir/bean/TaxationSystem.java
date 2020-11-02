@@ -10,8 +10,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "type")
-public class Type implements Serializable {
+@Table(name = "taxationSystem")
+public class TaxationSystem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,8 +21,14 @@ public class Type implements Serializable {
     @Column(name = "type_name", unique=true)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "type", cascade = CascadeType.ALL)
+    @Column(name = "percent", unique = true)
+    private int percent;
+
+    @Column(name = "min_profit", unique = true)
+    private int minimalProfit;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxationSystem", cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Swimmer> swimmers;
+    private Set<Company> companies;
 }

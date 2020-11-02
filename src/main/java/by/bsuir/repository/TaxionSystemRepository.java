@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TypeRepository extends JpaRepository<TaxationSystem, Integer> {
+public interface TaxionSystemRepository extends JpaRepository<TaxationSystem, Integer> {
     List<TaxationSystem> findAll();
     TaxationSystem findByName(String name);
 }

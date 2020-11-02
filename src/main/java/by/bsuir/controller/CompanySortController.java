@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class SwimmerSortController {
+public class CompanySortController {
 
     @Autowired
     CompanyRepository companyRepository;
@@ -16,36 +16,36 @@ public class SwimmerSortController {
     @GetMapping(value = "/sortByName")
     public ModelAndView sortByName(){
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.sortSwimmerByName());
+        modelAndView.addObject("listCompany", companyRepository.sortCompanyByName());
         return modelAndView;
     }
 
-    @GetMapping(value = "/sortByCountry")
-    public ModelAndView sortByCountry(){
+    @GetMapping(value = "/sortByCity")
+    public ModelAndView sortByCity(){
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.sortSwimmerByCountry());
+        modelAndView.addObject("listCompany", companyRepository.sortCompanyByCity());
         return modelAndView;
     }
 
     @GetMapping(value = "/sortByType")
     public ModelAndView sortByType(){
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.sortSwimmerByType());
+        modelAndView.addObject("listCompany", companyRepository.sortCompanyByType());
         return modelAndView;
     }
 
-    @GetMapping(value = "/sortByResult")
-    public ModelAndView searchSwimmerByResult(){
+    @GetMapping(value = "/sortByTaxAmount")
+    public ModelAndView searchCompanyByTaxAmount(){
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.sortSwimmerByResult());
+        modelAndView.addObject("listCompany", companyRepository.sortCompanyByTaxAmount());
         return modelAndView;
     }
 
-    @GetMapping(value = "/filtrationResult")
-    public ModelAndView searchSwimmerByResult(@ModelAttribute(name = "resultMin") int resultMin,
-                                              @ModelAttribute(name = "resultMax") int resultMax){
+    @GetMapping(value = "/filtrationTaxAmount")
+    public ModelAndView searchCompanyByTaxAmount(@ModelAttribute(name = "resultMin") int resultMin,
+                                                 @ModelAttribute(name = "resultMax") int resultMax){
         ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("listSwimmer", companyRepository.filtrationSwimmerByName(resultMin, resultMax));
+        modelAndView.addObject("listCompany", companyRepository.filtrationCompanyByTaxAmount(resultMin, resultMax));
         return modelAndView;
     }
 }

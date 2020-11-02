@@ -11,18 +11,18 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "country")
-public class Country implements Serializable {
+@Table(name = "city")
+public class City implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "country_id")
+    @Column(name = "city_id")
     private int id;
 
-    @Column(name = "country_name", unique=true)
+    @Column(name = "city_name", unique=true)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "country", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city", cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Company> companies;
