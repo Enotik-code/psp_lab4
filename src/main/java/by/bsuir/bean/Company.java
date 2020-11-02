@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Data
@@ -35,11 +33,11 @@ public class Swimmer implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id", nullable = false)
-    private Type type;
+    private TaxationSystem taxationSystem;
 
-    public Swimmer(String name, Country country, Type type) {
+    public Swimmer(String name, Country country, TaxationSystem taxationSystem) {
         this.name = name;
         this.country = country;
-        this.type = type;
+        this.taxationSystem = taxationSystem;
     }
 }

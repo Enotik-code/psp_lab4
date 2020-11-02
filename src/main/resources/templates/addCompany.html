@@ -9,19 +9,19 @@
 <body>
 <form method="post" name="addSwimmer">
     <label>Страна - </label>
-    <select name="country">
-        <option th:each="country : ${countryList}"
-                th:text="${country.name}">
+    <select name="city">
+        <option th:each="city : ${countryList}"
+                th:text="${city.name}">
         </option>
     </select>
     <label>Тип - </label>
-    <select name="type">
-        <option th:each="type : ${typeList}"
-                th:text="${type.name}">
+    <select name="taxationSystem">
+        <option th:each="taxationSystem : ${typeList}"
+                th:text="${taxationSystem.name}">
         </option>
     </select>
-    <input type="text" placeholder="Имя" name="name">
-    <button type="submit" >Добавить</button>
+    <input taxationSystem="text" placeholder="Имя" name="name">
+    <button taxationSystem="submit" >Добавить</button>
 </form>
 <br>
 <a href="/list">Список</a>

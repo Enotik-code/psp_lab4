@@ -1,6 +1,6 @@
 package by.bsuir.service;
 
-import by.bsuir.bean.Swimmer;
+import by.bsuir.bean.Company;
 import by.bsuir.repository.SwimmerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ public class SwimmerService {
     @Autowired
     SwimmerRepository swimmerRepository;
 
-    public List<Swimmer> getNewList() {
-        return swimmerRepository.findAll().stream().sorted(Comparator.comparing(Swimmer::getResult))
+    public List<Company> getNewList() {
+        return swimmerRepository.findAll().stream().sorted(Comparator.comparing(Company::getResult))
                 .collect(Collectors.toList()).subList(0,3);
     }
 

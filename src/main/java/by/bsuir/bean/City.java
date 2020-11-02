@@ -25,5 +25,5 @@ public class Country implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "country", cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Swimmer> swimmers;
+    private Set<Company> companies;
 }
